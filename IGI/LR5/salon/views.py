@@ -273,12 +273,13 @@ def my_clients(request):
     return render(request, 'salon/my_clients.html', {'buyers': buyers})
 
 
-
+@login_required
+@user_passes_test(lambda u: u.is_superuser)
 def car_stats_view(request):
     cars = Car.objects.all().values()
     buyers = Buyer.objects.prefetch_related('favorite_cars').all()
 
-    # Словарь email менеджера -> имя менеджера (полное имя или username)
+
     managers = {
         user.email: user.get_full_name() or user.username
         for user in CustomUser.objects.filter(is_staff=True)
@@ -288,7 +289,7 @@ def car_stats_view(request):
     buyer_data = []
 
     for buyer in buyers:
-        manager_name = managers.get(buyer.email_admin, buyer.email_admin)  # Если нет имени - оставляем email
+        manager_name = managers.get(buyer.email_admin, buyer.email_admin)
         for car in buyer.favorite_cars.all():
             buyer_data.append({
                 'manager': manager_name,

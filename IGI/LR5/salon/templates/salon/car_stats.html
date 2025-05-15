@@ -70,14 +70,42 @@
             }
         });
 
-        new Chart(document.getElementById('yearChart').getContext('2d'), {
-            type: 'bar',
+    new Chart(document.getElementById('yearChart').getContext('2d'), {
+            type: 'pie',
             data: {
                 labels: {{ year_labels|safe }},
                 datasets: [{
-                    label: 'Количество автомобилей по годам',
+                    label: 'Годы выпуска',
                     data: {{ year_values|safe }},
-                    backgroundColor: 'rgba(153, 102, 255, 0.6)'
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.6)',
+                        'rgba(54, 162, 235, 0.6)',
+                        'rgba(255, 206, 86, 0.6)',
+                        'rgba(75, 192, 192, 0.6)',
+                        'rgba(153, 102, 255, 0.6)',
+                        'rgba(255, 159, 64, 0.6)'
+                    ]
+                }]
+            }
+        });
+
+
+        new Chart(document.getElementById('managerSalesChart').getContext('2d'), {
+            type: 'pie',
+            data: {
+                labels: {{ manager_labels|safe }},
+                datasets: [{
+                    label: 'Продажи',
+                    data: {{ manager_values|safe }},
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.6)',
+                        'rgba(54, 162, 235, 0.6)',
+                        'rgba(255, 206, 86, 0.6)',
+                        'rgba(75, 192, 192, 0.6)',
+                        'rgba(153, 102, 255, 0.6)',
+                        'rgba(255, 159, 64, 0.6)',
+                        'rgba(201, 203, 207, 0.6)'
+                    ]
                 }]
             }
         });
@@ -99,17 +127,7 @@
             }
         });
 
-        new Chart(document.getElementById('managerSalesChart').getContext('2d'), {
-            type: 'bar',
-            data: {
-                labels: {{ manager_labels|safe }},
-                datasets: [{
-                    label: 'Продажи по менеджерам',
-                    data: {{ manager_values|safe }},
-                    backgroundColor: 'rgba(255, 159, 64, 0.6)'
-                }]
-            }
-        });
+
     </script>
 
     <div style="margin-top: 40px;">
