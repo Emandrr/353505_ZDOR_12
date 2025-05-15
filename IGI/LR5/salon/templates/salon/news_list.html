@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ru">
+<body>
+<div class="news-container">
+    <h1>Последние новости</h1>
+    
+    {% for item in news_items %}
+
+        
+        <div class="news-content">
+            <h2>{{ item.title }}</h2>
+            <p class="pub-date">{{ item.pub_date|date:"d.m.Y" }}</p>
+            <p class="short-content">{{ item.short_content }}</p>
+             {% if item.image %}
+            <img src="{{ item.image.url }}" alt="{{ item.title }}" class="news-image">
+            {% endif %}
+            <a href="{% url 'news_detail' item.pk %}" class="read-more">Читать далее</a>
+        </div>
+    {% endfor %}
+    <a href="{% url 'homepage' %}">← Назад</a>
+</div>
+</body>

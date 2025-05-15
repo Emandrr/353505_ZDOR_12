@@ -1,0 +1,20 @@
+<form method="post" action="{% url 'buy_car' car.pk %}">
+    {% csrf_token %}
+
+    <label for="seller">Выберите продавца:</label>
+    <select name="seller_email" id="seller" required>
+        {% for seller in sellers %}
+            <option value="{{ seller.email }}">{{ seller.username }}</option>
+        {% endfor %}
+    </select>
+
+    <label for="promo_code">Промокод :</label>
+    <select name="promo_code" id="promo_code">
+        <option value="" selected>Без промокода</option>
+        {% for promo in promos %}
+            <option value="{{ promo.id }}">{{ promo.title }} — скидка {{ promo.discount_value }}%</option>
+        {% endfor %}
+    </select>
+
+    <button type="submit" class="btn">Купить</button>
+</form>

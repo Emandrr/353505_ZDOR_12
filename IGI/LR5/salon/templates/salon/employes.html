@@ -1,0 +1,50 @@
+<!-- staff.html -->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Наши сотрудники</title>
+</head>
+<body>
+    <h1>Наши сотрудники</h1>
+
+    <div class="staff-container">
+        {% for staff_member in empl %}
+            {% if staff_member.is_staff and not staff_member.is_superuser%}
+                <div class="staff-card">
+
+                    {% if staff_member.image %}
+                        <img src="{{ staff_member.image.url }}" alt="{{ staff_member.get_full_name }}" class="staff-image">
+                    {% else %}
+                        <img src="/media/user_images/default.jpg" alt="Фото отсутствует" class="staff-image">
+                    {% endif %}
+
+                    <div class="staff-name">
+                        {% if staff_member.get_full_name %}
+                            {{ staff_member.get_full_name }}
+                        {% else %}
+                            {{ staff_member.username }}
+                        {% endif %}
+                    </div>
+
+                    {% if staff_member.birth_date %}
+                        <div class="staff-info">Дата рождения: {{ staff_member.birth_date }}</div>
+                    {% endif %}
+
+                    <div class="staff-info">Email: {{ staff_member.email }}</div>
+
+                    {% if staff_member.phone %}
+                        <div class="staff-info">Телефон: {{ staff_member.phone }}</div>
+                    {% endif %}
+
+                    {% if staff_member.additional_info %}
+                        <div class="staff-info">Доп. информация: {{ staff_member.additional_info }}</div>
+                    {% endif %}
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+    <a href="{% url 'homepage' %}">← Назад</a>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ car.make }} {{ car.model }} - Детали автомобиля</title>
+</head>
+<body>
+    <a href="{% url 'car_list' %}" class="back-link">← Вернуться к списку автомобилей</a>
+    <div class="car-container">
+        {% if car.photo %}
+            <img src="{{ car.photo.url }}" alt="{{ car.make }} {{ car.model }}" class="car-image">
+        {% endif %}
+
+        <h1 class="car-title">{{ car.make }} {{ car.model }} ({{ car.year }})</h1>
+
+        <div class="car-specs">
+            <p class="price">{{ car.price }} ₽</p>
+            <p><strong>Пробег:</strong> {{ car.mileage }} км</p>
+            <p><strong>Куплено раз:</strong> {{ car.purchases }}</p>
+            {% if car.description %}
+                <p><strong>Описание:</strong> {{ car.description }}</p>
+            {% endif %}
+        </div>
+    {% if user.is_authenticated and not user.is_staff%}
+        <a href="{% url 'buy_car' car.pk %}" class="add-review-btn">Купить машину</a>
+    {% else %}
+        <p>Чтобы купить машину, пожалуйста <a href="{% url 'login' %}?next={% url 'add_review' %}">войдите как пользователь</a></p>
+    {% endif %}
+
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ru">
+<body>
+<h1>Список автомобилей</h1>
+
+
+<div class="sorting">
+    <strong>Сортировать:</strong>
+    <a href="?sort=default" class="{% if sort_by == 'default' %}active{% endif %}">По умолчанию</a>
+    <a href="?sort=price" class="{% if sort_by == 'price' %}active{% endif %}">По цене</a>
+    <a href="?sort=popular" class="{% if sort_by == 'popular' %}active{% endif %}">По популярности</a>
+</div>
+<div class="car-grid">
+    {% for car in cars %}
+    <div class="car-card">
+        <a href="{% url 'car_view' car.pk %}">
+            {% if car.photo %}
+                <img src="{{ car.photo.url }}" alt="{{ car.make }} {{ car.model }}">
+            {% endif %}
+            <h3>{{ car.make }} </h3>
+        </a>
+        <h3>{{ car.model }} ({{ car.year }})</h3>
+        <p class="price">{{ car.price }} ₽</p>
+        <p class="purchases">Куплено: {{ car.purchases }}</p>
+    </div>
+    {% endfor %}
+</div>
+<a href="{% url 'homepage' %}">← Назад</a>
+</body>
+</html>

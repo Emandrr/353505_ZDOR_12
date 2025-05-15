@@ -1,0 +1,92 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Cars Minsk</title>
+</head>
+<body>
+    <header>
+        <h1>Добро пожаловать в Premium Cars Minsk</h1>
+        <img src="{% static 'logo.jpg' %}" alt="Логотип автосалона" width="300">
+    </header>
+    <h1>Текущее время и календарь</h1>
+
+    <div class="time-info">
+        <div class="time-block">
+            <strong>Ваша временная зона:</strong> {{ user_timezone }}
+        </div>
+
+        <div class="time-block">
+            <strong>Текущая дата и время ({{ user_timezone }}):</strong>
+            {{ user_now|date:"d/m/Y H:i" }}
+        </div>
+
+        <div class="time-block">
+            <strong>Текущая дата и время (UTC):</strong>
+            {{ utc_now|date:"d/m/Y H:i" }}
+        </div>
+    </div>
+
+    <h2>Календарь на текущий месяц</h2>
+    <div class="calendar">{{ current_month_cal }}</div>
+    <h3>Погода для тест-Драйва</h3>
+        <div class="weather-info">
+            <div class="weather-details">
+                <span class="weather-temp">{{ weather.main.temp|floatformat:0 }}°C</span>
+                <span class="weather-desc">{{ weather.weather.0.description|capfirst }}</span>
+                <div class="weather-extra">
+                    <span>Влажность: {{ weather.main.humidity }}%</span>
+                    <span>Ветер: {{ weather.wind.speed }} м/с</span>
+                </div>
+            </div>
+        </div>
+
+    <h2 class="section-title">Видеообзор 911</h2>
+        <div id="video-container">
+            <iframe
+                width="{{ youtube_player_width }}"
+                height="{{ youtube_player_height }}"
+                src="https://www.youtube.com/embed/{{ youtube_video_id }}?autoplay={{ youtube_autoplay }}&controls={{ youtube_controls }}"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen>
+            </iframe>
+        </div>
+    <nav>
+        <ul>
+            <li><a href="{% url 'about' %}">О компании</a></li>
+            <li><a href="{% url 'news_list' %}">Новости</a></li>
+            <li><a href="{% url 'faq' %}">FAQ</a></li>
+            <li><a href="{% url 'vacancy' %}">Вакансии</a></li>
+            <li><a href="{% url 'confidential' %}">Политика конфиденциальности</a></li>
+            <li><a href="{% url 'promo' %}">Промокоды</a></li>
+            <li><a href="{% url 'employes' %}">Сотрудники</a></li>
+            <li><a href="{% url 'reviews_list' %}">Отзывы</a></li>
+            <li><a href="{% url 'car_list' %}">Машины</a></li>
+
+            {% if user.is_active %}
+                <li class="user-status">Привет, {{ user.username }}!</li>
+                <li><a href="{% url 'logout' %}">Выйти</a></li>
+            {% else %}
+                <li><a href="{% url 'login' %}">Войти</a></li>
+                <li><a href="{% url 'register' %}">Регистрация</a></li>
+            {% endif %}
+            {% if not user.is_staff and user.is_active %}
+            <li><a href="{% url 'my_purchased_cars' %}">Мои машины</a></li>
+            {% endif %}
+            {% if user.is_staff and user.is_active %}
+            <li><a href="{% url 'my_clients' %}">Мои клиенты</a></li>
+            {% endif %}
+            {% if user.is_superuser %}
+            <li><a href="{% url 'car_stats' %}">Статистика</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+
+    <footer>
+        <p>&copy; 2025 Premium Cars Minsk</p>
+    </footer>
+</body>
+</html>

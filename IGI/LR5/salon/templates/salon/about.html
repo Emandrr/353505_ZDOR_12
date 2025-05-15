@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Company</title>
+</head>
+<body>
+    <h1 class="text-center text-success">About page </h1>
+    <h2 class="text-center">{{ auto_company.name }}</h2>
+    <p class="text-center">{{ auto_company.description }}</p>
+    <a href="{% url 'homepage' %}">← Назад</a>
+</body>
+

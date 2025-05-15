@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Отзывы</title>
+</head>
+<body>
+    <h1>Отзывы</h1>
+
+    {% if user.is_authenticated %}
+        <a href="{% url 'add_review' %}" class="add-review-btn">Добавить отзыв</a>
+    {% else %}
+        <p>Чтобы оставить отзыв, пожалуйста <a href="{% url 'login' %}?next={% url 'add_review' %}">войдите</a> или <a href="{% url 'register' %}">зарегистрируйтесь</a>.</p>
+    {% endif %}
+
+    <table>
+        {% for review in reviews %}
+        <thead>
+            <tr>
+                <th>Пользователь</th>
+                <th>Оценка</th>
+                <th>Отзыв</th>
+                <th>Дата</th>
+            </tr>
+        </thead>
+        {% endfor %}
+        <tbody>
+            {% for review in reviews %}
+            <tr>
+                <td>{{ review.user.get_full_name|default:review.user.username }}</td>
+                <td class="rating">{{ review.rating }}/5</td>
+                <td>{{ review.text }}</td>
+                <td class="date">{{ review.created_at|date:"d.m.Y H:i" }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4">Пока нет отзывов. Будьте первым!</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{% url 'homepage' %}">← Назад</a>
+</body>
+</html>

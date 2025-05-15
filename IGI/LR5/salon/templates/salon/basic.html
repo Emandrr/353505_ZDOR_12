@@ -1,0 +1,34 @@
+{% load static %}
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Cars Minsk</title>
+</head>
+<body>
+    <header>
+        <h1>Добро пожаловать в Premium Cars Minsk</h1>
+        <img src="{% static 'logo.jpg' %}" alt="Логотип автосалона" width="300">
+    </header>
+
+    <nav>
+        <ul>
+            <!-- Убедитесь, что эти URL-имена определены в urls.py -->
+            <li><a href="{% url 'about' %}">О компании</a></li>
+            <li><a href="{% url 'news' %}">Новости</a></li>
+            <li><a href="{% url 'faq' %}">FAQ</a></li>
+            <li><a href="{% url 'contacts' %}">Контакты</a></li>
+            <li><a href="{% url 'privacy' %}">Политика конфиденциальности</a></li>
+            <li><a href="{% url 'vacancies' %}">Вакансии</a></li>
+            <li><a href="{% url 'reviews' %}">Отзывы</a></li>
+            <li><a href="{% url 'promo' %}">Промокоды</a></li>
+        </ul>
+    </nav>
+
+    <footer>
+        <p>&copy; 2025 Premium Cars Minsk</p>
+    </footer>
+</body>
+</html>

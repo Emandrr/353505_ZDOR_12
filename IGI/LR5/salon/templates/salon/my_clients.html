@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Мои клиенты</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Мои клиенты</h1>
+
+        {% if buyers %}
+            <ul>
+                {% for buyer in buyers %}
+                    <li>
+                        <strong>{{ buyer.user.username }}</strong> — {{ buyer.user.email }}
+                        {% if buyer.favorite_cars.all %}
+                        <ul>
+                            {% for car in buyer.favorite_cars.all %}
+                                <li>
+                                    {{ car.make }} {{ car.model }} ({{ car.year }}) — {{ car.price }} ₽
+                                </li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>У вас пока нет клиентов.</p>
+        {% endif %}
+
+        <a href="{% url 'homepage' %}">← Назад</a>
+    </div>
+</body>
+</html>

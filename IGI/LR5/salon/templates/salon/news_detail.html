@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ru">
+<body>
+<div class="news-detail-container">
+    <a href="{% url 'news_list' %}" class="back-link">← Назад к списку новостей</a>
+
+    <article class="news-article">
+        <h1>{{ news_item.title }}</h1>
+        <p class="pub-date">{{ news_item.pub_date|date:"d.m.Y H:i" }}</p>
+
+        {% if news_item.image %}
+        <img src="{{ news_item.image.url }}" alt="{{ news_item.title }}" class="detail-image">
+        {% endif %}
+        
+        <div class="full-content">
+            {{ news_item.full_content|linebreaks }}
+        </div>
+    </article>
+</div>

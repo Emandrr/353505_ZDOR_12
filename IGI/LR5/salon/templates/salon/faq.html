@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - Premium Cars Minsk</title>
+</head>
+<body>
+<div class="faq-container">
+    <h1>FAQ</h1>
+
+    {% for faq in faqs %}
+    <div class="faq-item">
+        <h2>{{ faq.title }}</h2>
+        <p class="faq-date">{{ faq.ans_date|date:"d.m.Y" }}</p>
+        <p class="faq-question">{{ faq.full_content_question }}</p>
+        <p class="faq-answer">{{ faq.full_content_answer }}</p>
+    </div>
+    {% endfor %}
+    <a href="{% url 'homepage' %}">← Назад</a>
+</div>
+</body>

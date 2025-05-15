@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Промокоды</title>
+</head>
+<body>
+<div class="promo-container">
+    <h1 class="promo-header">Акционные предложения</h1>
+
+    <div class="promo-section">
+        <h2 class="section-title">Активные промокоды</h2>
+
+        {% for promo in active_promocodes %}
+        <div class="promo-item">
+            <h2 class="promo-title">{{ promo.title }}</h2>
+
+            <div class="promo-content">
+                {{ promo.full_content|linebreaks }}
+            </div>
+
+            <div>
+                <span class="promo-discount">Скидка {{ promo.discount_value }}%</span>
+            </div>
+
+            <div class="promo-dates">
+                Действует до {{ promo.pub_date_expire|date:"d.m.Y" }}
+            </div>
+        </div>
+        {% empty %}
+        <div class="no-promos">
+            На данный момент активных промокодов нет.
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="promo-section">
+        <h2 class="section-title">Архив промокодов</h2>
+
+        {% for promo in expired_promocodes %}
+        <div class="promo-item expired">
+            <h2 class="promo-title">{{ promo.title }}</h2>
+            <div class="promo-content">
+                {{ promo.full_content|linebreaks }}
+            </div>
+
+            <div>
+                Скидка {{ promo.discount_value }}
+            </div>
+
+            <div class="promo-dates">
+                Действовал до {{ promo.pub_date_expire|date:"d.m.Y" }}
+            </div>
+        </div>
+        {% empty %}
+        <div class="no-promos">
+            Архив промокодов пуст.
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<a href="{% url 'homepage' %}">← Назад</a>
+</body>
+</html>

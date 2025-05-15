@@ -1,0 +1,20 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Выход - Premium Cars Minsk</title>
+</head>
+<body>
+    <div class="logout-container">
+        <h2>Вы уверены, что хотите выйти?</h2>
+
+        <form method="post" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button type="submit" class="btn-logout">Да, выйти</button>
+            <a href="{% url 'home' %}" class="btn-cancel">Отмена</a>
+        </form>
+    </div>
+</body>
+</html>

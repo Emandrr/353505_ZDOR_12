@@ -1,0 +1,16 @@
+{% if cars_with_prices %}
+    <ul>
+    {% for car, price in cars_with_prices %}
+        <li>
+            {% if car.photo %}
+                <img src="{{ car.photo.url }}" alt="{{ car.make }} {{ car.model }}">
+            {% endif %}
+            <a href="{% url 'manage_purchase' car.pk %}">Управление покупкой</a>
+            {{ car.model }} ({{ car.year }}) — {{ price }} ₽
+        </li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>Вы ещё не покупали автомобили.</p>
+{% endif %}
+    <a href="{% url 'homepage' %}">← Назад</a>
